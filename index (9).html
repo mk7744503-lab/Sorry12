@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ur-Latn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Areshey, ek lamba safar</title>
+<meta name="description" content="Areshey ke liye ek chhota sa safar.">
+<meta name="theme-color" content="#07020a">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Caveat:wght@500&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+:root{--bg:#07020a;--ink:#f6e6ea;--rose:#c4153f;--glow:#ff3d6e;--dim:#a4808b;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:"Cormorant Garamond",Georgia,"Palatino Linotype",serif;overflow:hidden;touch-action:none}
+#c{position:fixed;inset:0;width:100%;height:100%;z-index:0;transition:opacity 2s}
+#vig{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at center,transparent 35%,#000 100%)}
+#fl{position:fixed;inset:0;z-index:6;background:#fff;opacity:0;pointer-events:none}
+#fl.on{animation:fl 1.4s ease-out}
+@keyframes fl{from{opacity:.95}to{opacity:0}}
+#bar{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:2px;background:linear-gradient(90deg,var(--rose),var(--glow));z-index:5;width:0;transition:width 1.4s}
+#stage{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px;text-align:center;pointer-events:none}
+#stage.end{justify-content:flex-end;padding-bottom:calc(34px + env(safe-area-inset-bottom,0px))}
+.card{max-width:540px;padding:18px 8px;transition:opacity 1s}
+.end .card{background:radial-gradient(ellipse at center,rgba(7,2,10,.8),transparent 75%)}
+.line{font-size:clamp(26px,6.4vw,42px);line-height:1.4;min-height:1.4em;text-shadow:0 0 26px rgba(255,61,110,.45);font-style:italic}
+.line.small{font-size:clamp(18px,4.6vw,24px);color:var(--dim);margin-top:16px;font-style:normal;line-height:1.55;text-shadow:none;min-height:3em}
+.cur::after{content:"|";margin-left:2px;animation:bl 1s steps(2) infinite;color:var(--glow)}
+@keyframes bl{50%{opacity:0}}
+.glitch{animation:gl .12s steps(2) infinite;text-shadow:4px 0 #0ff,-4px 0 #f0f}
+@keyframes gl{0%{transform:translate(3px,-1px) skewX(5deg)}50%{transform:translate(-4px,2px) skewX(-7deg)}100%{transform:translate(0)}}
+.dark{-webkit-mask-image:radial-gradient(circle 80px at var(--mx,15%) var(--my,25%),#000 0,#000 35%,transparent 100%);mask-image:radial-gradient(circle 80px at var(--mx,15%) var(--my,25%),#000 0,#000 35%,transparent 100%)}
+#hint{position:fixed;bottom:calc(60px + env(safe-area-inset-bottom,0px));left:0;right:0;z-index:3;text-align:center;color:var(--dim);font-size:15px;opacity:0;transition:opacity 2s;pointer-events:none}
+#hint.on{opacity:.8}
+button{font:inherit;background:rgba(7,2,10,.5);color:var(--ink);border:1px solid var(--rose);padding:14px 32px;border-radius:40px;margin-top:30px;cursor:pointer;font-size:18px;letter-spacing:.04em;box-shadow:0 0 24px rgba(196,21,63,.4);transition:.4s;opacity:0;pointer-events:none;touch-action:manipulation}
+button.on{opacity:1;pointer-events:auto}
+button:hover,button:focus-visible{background:var(--rose);outline:none}
+#hold{position:relative;width:150px;height:150px;border-radius:50%;padding:0;display:none;align-items:center;justify-content:center;user-select:none;-webkit-user-select:none;font-size:16px;line-height:1.3}
+#hold.on{display:flex}
+#hold svg{position:absolute;inset:-6px;width:162px;height:162px;transform:rotate(-90deg)}
+#hold circle{fill:none;stroke:var(--glow);stroke-width:4;stroke-dasharray:477;stroke-dashoffset:477;stroke-linecap:round}
+.fade{animation:fd 2s both}
+@keyframes fd{from{opacity:0;filter:blur(10px)}}
+#lt{position:fixed;inset:0;z-index:7;display:none;align-items:center;justify-content:center;background:rgba(7,2,10,.78);perspective:1300px;padding:16px}
+#paper{width:min(560px,100%);max-height:86vh;overflow-y:auto;touch-action:pan-y;background:linear-gradient(#f6ead9,#efdfc8);color:#3a1a22;padding:34px 26px 26px;border-radius:3px;box-shadow:0 30px 80px #000,0 0 60px rgba(255,61,110,.25);transform-origin:50% 0;font-size:clamp(19px,4.9vw,23px);line-height:1.75;font-style:italic;text-align:left}
+#paper.o{animation:unf 2s cubic-bezier(.2,.9,.3,1) both}
+@keyframes unf{from{transform:rotateX(-88deg) scale(.55);opacity:0}to{transform:none;opacity:1}}
+.lp{opacity:0;animation:lf 1.6s forwards;margin-bottom:.9em}
+.lp.h{font-size:1.5em;color:#a3122f}
+.pr{border-left:2px solid #a3122f;padding-left:12px}
+#cnt{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:16px;z-index:5;font-size:15px;color:var(--dim);opacity:0;transition:opacity 1s;pointer-events:none}
+.dim{opacity:.1!important}
+@keyframes lf{from{opacity:0;transform:translateY(10px);filter:blur(5px)}to{opacity:1;transform:none;filter:none}}
+#cl{display:block;margin:18px auto 0;color:#3a1a22;background:transparent;border-color:#a3122f;box-shadow:none;font-style:normal}
+#cl:hover,#cl:focus-visible{color:#fff}
+#snd{position:fixed;top:calc(10px + env(safe-area-inset-top,0px));left:12px;z-index:8;margin:0;padding:6px 12px;font-size:17px;opacity:.55;pointer-events:auto;box-shadow:none;border-color:transparent;background:transparent}
+#snd:hover,#snd:focus-visible{opacity:1;background:rgba(196,21,63,.35)}
+#x{position:absolute;z-index:2;top:calc(12px + env(safe-area-inset-top,0px));right:14px;margin:0;padding:6px 14px;font-size:22px;line-height:1;opacity:.8;pointer-events:auto;box-shadow:none}
+#hold{-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+#ig{position:fixed;inset:0;z-index:9;display:flex;flex-direction:column;background:#0c0a10;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-top:env(safe-area-inset-top,0px);transition:opacity .6s;touch-action:pan-y}
+#igh{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid #26232c}
+#igh i{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:600;color:#fff;background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)}
+#igh b{display:block;font-size:16px;font-weight:600}#igh small{color:#8e8a96;font-size:12px}
+#igm{flex:1;overflow-y:auto;display:flex;flex-direction:column;justify-content:flex-end;gap:6px;padding:16px}
+.mb{align-self:flex-end;max-width:80%;padding:10px 14px;border-radius:20px 20px 4px 20px;background:linear-gradient(135deg,#7a3cf0,#c13584);color:#fff;font-size:16px;line-height:1.35;animation:pop .3s both}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.94)}}
+.lk{cursor:pointer;margin-top:6px;box-shadow:0 0 0 0 rgba(193,53,132,.6);animation:pop .3s both,pls 2s 1s infinite}
+.lk small{display:block;opacity:.75;font-size:12px;margin-top:2px}
+@keyframes pls{70%{box-shadow:0 0 0 14px transparent}}
+#igi{margin:10px 14px calc(14px + env(safe-area-inset-bottom,0px));padding:12px 18px;border:1px solid #3a3642;border-radius:24px;color:#8e8a96;font-size:16px;min-height:46px}
+#igi.t{color:#fff}
+#paper{font-family:"Caveat","Kalam","Bradley Hand",cursive;font-style:normal;font-size:clamp(23px,6.2vw,28px);line-height:32px;color:#1d2b5e;padding:32px 22px 20px 46px;background:linear-gradient(90deg,transparent 33px,rgba(196,21,63,.4) 33px 34px,transparent 34px),repeating-linear-gradient(#f6ead9 0 31px,rgba(110,80,120,.22) 31px 32px);background-attachment:local}
+.lp.w{opacity:1;animation:none;margin-bottom:32px}
+.lp.h{font-size:1.2em;line-height:32px}
+#paper .cur::after{color:#a3122f}
+.sig{margin:-4px 0 10px 34px;height:92px}
+.sig svg{width:200px;height:92px;overflow:visible}
+.sig text{font:110px "Mrs Saint Delafield","Caveat",cursive;fill:#1d2b5e;fill-opacity:0;stroke:#1d2b5e;stroke-width:1.6;stroke-dasharray:1200;stroke-dashoffset:1200;animation:ds 2.6s ease-in-out forwards,sf .8s 2.2s forwards}
+@keyframes ds{to{stroke-dashoffset:0}}
+@keyframes sf{to{fill-opacity:1;stroke-width:.4}}
+#sk{text-align:center;font-size:.65em;color:#7a5a62;opacity:0;transition:opacity 1s;margin:0}
+#ew{display:none;flex-direction:column;align-items:center;pointer-events:auto;margin-top:18px;animation:fd 1.6s both}
+#env{position:relative;width:210px;height:136px;background:#d6bd96;border-radius:4px;cursor:pointer;touch-action:manipulation;box-shadow:0 14px 40px #000,0 0 44px rgba(255,61,110,.3);animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-5px)}}
+#env::before{content:"";position:absolute;left:0;right:0;top:0;height:86px;background:#c8aa7e;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s;z-index:2}
+#env::after{content:"";position:absolute;inset:0;background:#e8d6b6;clip-path:polygon(0 100%,0 28%,50% 66%,100% 28%,100% 100%)}
+#env span{position:absolute;z-index:3;left:50%;top:58px;width:40px;height:40px;margin-left:-20px;display:grid;place-items:center;border-radius:50%;font-size:20px;background:radial-gradient(#d4264f,#8c0f2b);box-shadow:0 2px 8px #0008;transition:opacity .4s}
+#env.open::before{transform:scaleY(-1)}#env.open span{opacity:0}
+#env:focus-visible{outline:2px solid var(--glow);outline-offset:4px}
+#ew p{font-size:16px;color:var(--dim);margin-top:14px;max-width:270px;text-align:center;line-height:1.4}
+@media (prefers-reduced-motion:reduce){.glitch,.cur::after{animation:none}#fl{display:none}.lp,#paper.o{animation-duration:.01s;animation-delay:0s!important}.sig text{animation-duration:.01s!important;animation-delay:0s!important}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas><div id="vig"></div><div id="bar"></div><div id="fl"></div><div id="hint">Ungli ghumao, roshni dhoondo</div>
+<div id="lt"><button id="x" aria-label="Khat band karo">×</button><div id="paper"><div id="pc"></div><p id="sk">Jaldi padhna ho to khat par tap karo</p><button id="cl">Band karo</button></div></div>
+<audio id="song" src="song.mp3" loop preload="auto"></audio>
+<button id="snd" aria-label="Awaaz on ya off">🔊</button>
+<div id="cnt"></div>
+<div id="ig"><div id="igh"><i>A</i><div><b>Areshey</b><small>Active now</small></div></div><div id="igm"></div><div id="igi"><span id="igt">Message…</span></div></div>
+<main id="stage">
+  <div class="card" id="card"><p class="line" id="t">Areshey…</p><p class="line small" id="s">Headphones laga lo. Awaaz on rakho. Ye raat ka safar hai.</p></div>
+  <button id="go" class="on">Shuru karo</button>
+  <button id="hold"><svg viewBox="0 0 162 162"><circle cx="81" cy="81" r="76" id="ring"/></svg><span>Dil se<br>dabaye rakho</span></button>
+<div id="ew"><div id="env" role="button" tabindex="0" aria-label="Khat kholo"><span>🌹</span></div><p></p></div>
+</main>
+<script>
+const $=id=>document.getElementById(id),wait=ms=>new Promise(r=>setTimeout(r,ms)),RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+/* ---------- 3D scene ---------- */
+const R=new THREE.WebGLRenderer({canvas:$('c'),antialias:true});R.setPixelRatio(Math.min(devicePixelRatio,2));
+const S=new THREE.Scene();S.background=new THREE.Color(0x07020a);S.fog=new THREE.FogExp2(0x07020a,.05);
+const Cm=new THREE.PerspectiveCamera(70,1,.1,300);
+function rs(){R.setSize(innerWidth,innerHeight);Cm.aspect=innerWidth/innerHeight;Cm.updateProjectionMatrix()}rs();addEventListener('resize',rs);
+S.add(new THREE.AmbientLight(0x552233,.7));
+const candle=new THREE.PointLight(0xff4466,1.6,24);S.add(candle);
+// tunnel of petals
+const pg=new THREE.PlaneGeometry(.5,.8,3,3),pp=pg.attributes.position;
+for(let i=0;i<pp.count;i++)pp.setZ(i,pp.getX(i)**2*1.3+pp.getY(i)*.1);pg.computeVertexNormals();
+const N=560,IM=new THREE.InstancedMesh(pg,new THREE.MeshStandardMaterial({side:2,roughness:.5,emissive:0x2a000c}),N),pd=[],o=new THREE.Object3D(),cl=new THREE.Color();
+for(let i=0;i<N;i++){const a=Math.random()*6.283,r=2+Math.random()*7;pd.push({x:Math.cos(a)*r,y:Math.sin(a)*r,z:-Math.random()*150,rx:Math.random()*6,ry:Math.random()*6,sx:Math.random()*2-1,sy:Math.random()*2-1,f:.3+Math.random()*.7,s:.7+Math.random()*.9});IM.setColorAt(i,cl.setHSL(.96+Math.random()*.04,.85,.16+Math.random()*.28))}
+IM.frustumCulled=false;S.add(IM);
+// dust
+const dp=new Float32Array(2700);for(let i=0;i<900;i++){dp[i*3]=(Math.random()-.5)*24;dp[i*3+1]=(Math.random()-.5)*16;dp[i*3+2]=-Math.random()*140}
+const dg=new THREE.BufferGeometry();dg.setAttribute('position',new THREE.BufferAttribute(dp,3));
+const dust=new THREE.Points(dg,new THREE.PointsMaterial({color:0xff8aa5,size:.07,transparent:true,opacity:.6,blending:THREE.AdditiveBlending,depthWrite:false}));dust.frustumCulled=false;S.add(dust);
+// floating papers with messages
+function pTex(txt){const c=document.createElement('canvas');c.width=512;c.height=680;const x=c.getContext('2d');x.fillStyle='#f6ead9';x.fillRect(0,0,512,680);x.strokeStyle='rgba(120,60,70,.18)';x.lineWidth=2;for(let y=140;y<640;y+=56){x.beginPath();x.moveTo(28,y);x.lineTo(484,y);x.stroke()}
+x.strokeStyle='#a3122f';x.lineWidth=6;x.strokeRect(14,14,484,652);
+x.fillStyle='#8a0f28';x.font='italic 700 78px Georgia,serif';x.textAlign='center';x.textBaseline='middle';const w=txt.split(' '),L=[];let cur='';w.forEach(a=>{if((cur+' '+a).trim().length>10&&cur){L.push(cur);cur=a}else cur=(cur+' '+a).trim()});L.push(cur);const y0=300-(L.length-1)*47;L.forEach((l,i)=>x.fillText(l,256,y0+i*94));x.font='70px serif';x.fillText('🌹',256,605);const tx=new THREE.CanvasTexture(c);tx.anisotropy=8;return tx}
+const MSG=['Sorry','Tumhara haq tha','Meri ghalti thi','Tumhari “na” sahi thi','Dil se sorry','Dobara nahi','Afsos hai','Tum khaas ho','Sorry Areshey','Main sun raha hoon','Galat tha main','Gulab tumhare liye','Izzat karunga','Ye meri zimmedari','Bohat sorry','Tumhari baat ahem hai'];
+const papers=[],tmp=new THREE.Vector3(),sc1=new THREE.Vector3(1.25,1.25,1.25),sc2=new THREE.Vector3(2.5,2.5,2.5),o2=new THREE.Object3D();let orbit=false;
+MSG.forEach((tx,i)=>{const tt=pTex(tx),m=new THREE.Mesh(new THREE.PlaneGeometry(.9,1.2),new THREE.MeshStandardMaterial({map:tt,emissive:0xffffff,emissiveMap:tt,emissiveIntensity:.32,side:2,fog:false,transparent:true}));const hx=(i%2?1:-1)*(.5+Math.random()*.8),hy=(Math.random()-.5)*2.4,hz=-20-i*5.5;m.position.set(hx,hy,hz);S.add(m);papers.push({m,hx,hy,hz,i,g:0,a:Math.random()*6.28,r:2.2+Math.random()*2.2})});
+const rc=new THREE.Raycaster(),mv=new THREE.Vector2();
+const seen=new Set(),hn=$('hint');
+function say(x,ms){hn.textContent=x;hn.classList.add('on');clearTimeout(hn._t);hn._t=setTimeout(()=>hn.classList.remove('on'),ms)}
+$('c').addEventListener('pointerdown',e=>{const held=papers.find(p=>p.g>T);if(held){held.g=0;held.done=true;card.classList.remove('dim');hn.classList.remove('on');return}
+let best=null,bd=80;for(const p of papers){if(p.done||p.m.position.clone().applyMatrix4(Cm.matrixWorldInverse).z>=0)continue;const v=p.m.position.clone().project(Cm),d=Math.hypot((v.x*.5+.5)*innerWidth-e.clientX,(-v.y*.5+.5)*innerHeight-e.clientY);if(d<bd){bd=d;best=p}}
+if(!best)return;best.g=T+1e6;sc2.setScalar(Math.min(2.5,.85*3.22*Cm.aspect/.9));card.classList.add('dim');seen.add(best.i);const cn=$('cnt');cn.textContent='🌹 '+seen.size+'/'+papers.length;cn.style.opacity=1;if(navigator.vibrate)navigator.vibrate(20);say('Padh liya? Dobara tap karo, kaghaz wapas ud jayega',6000);
+if(seen.size===papers.length){setTimeout(()=>{chime();flash();say('Tumne saare kaghaz padh liye. Ab gulab tak chalo.',7000)},700)}});
+function startOrbit(){orbit=true}
+// the rose
+const ROSE_Z=-118,rose=new THREE.Group();rose.position.set(0,-1.2,ROSE_Z);S.add(rose);
+const rg=new THREE.PlaneGeometry(1,1.2,4,4),rp=rg.attributes.position;
+for(let i=0;i<rp.count;i++){let x=rp.getX(i),y=rp.getY(i)+.6;x*=.45+(y/1.2)*.55;rp.setXYZ(i,x,y,-(x*x)*1.2)}rg.computeVertexNormals();
+const cols=[0x7a0a26,0x9b0f30,0xb8143c,0xd01a47,0xe62a58],rings=[];
+for(let i=0;i<5;i++){const n=[4,5,7,9,11][i];for(let j=0;j<n;j++){const py=new THREE.Group();py.rotation.y=j/n*6.283+i*.7;const px=new THREE.Group(),m=new THREE.Mesh(rg,new THREE.MeshStandardMaterial({color:cols[i],side:2,emissive:0x3a0010,roughness:.4,fog:false}));m.position.z=.1+i*.05;px.add(m);py.add(px);rose.add(py);rings.push({px,m,i})}}
+const stem=new THREE.Mesh(new THREE.CylinderGeometry(.06,.09,7,8),new THREE.MeshStandardMaterial({color:0x2c6b3a,fog:false}));stem.position.y=-3.6;rose.add(stem);
+const gc=document.createElement('canvas');gc.width=gc.height=128;const gx=gc.getContext('2d'),gr=gx.createRadialGradient(64,64,0,64,64,64);gr.addColorStop(0,'rgba(255,60,110,.9)');gr.addColorStop(1,'rgba(255,60,110,0)');gx.fillStyle=gr;gx.fillRect(0,0,128,128);
+const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(gc),blending:THREE.AdditiveBlending,depthWrite:false,fog:false}));glow.position.y=.8;glow.scale.setScalar(3);rose.add(glow);
+const rl=new THREE.PointLight(0xff3355,1,22);rl.position.set(0,1,2.5);rose.add(rl);
+const shock=new THREE.Mesh(new THREE.RingGeometry(.9,1,64),new THREE.MeshBasicMaterial({color:0xff6a8d,transparent:true,opacity:0,side:2,blending:THREE.AdditiveBlending,depthWrite:false,fog:false}));shock.position.set(0,-.4,ROSE_Z+1);S.add(shock);
+const SP=new Float32Array(360),sg=new THREE.BufferGeometry();for(let i=0;i<120;i++){const a=Math.random()*6.28,r=.5+Math.random()*3;SP[i*3]=Math.cos(a)*r;SP[i*3+1]=Math.random()*7-2;SP[i*3+2]=Math.sin(a)*r}sg.setAttribute('position',new THREE.BufferAttribute(SP,3));
+const sparks=new THREE.Points(sg,new THREE.PointsMaterial({color:0xffc2d1,size:.09,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,fog:false}));sparks.position.set(0,-1.2,ROSE_Z);sparks.frustumCulled=false;S.add(sparks);
+const FP=new THREE.InstancedMesh(pg,new THREE.MeshStandardMaterial({color:0xe62a58,side:2,emissive:0x5a0018,fog:false}),40),fd=[];for(let i=0;i<40;i++)fd.push({a:Math.random()*6.28,r:Math.random()*2.5,y:Math.random()*8-3,v:.3+Math.random()*.4,rx:Math.random()*6,s:.25+Math.random()*.25});FP.frustumCulled=false;FP.visible=false;S.add(FP);
+[[-1,-2.3,.5],[1,-3.2,-.5]].forEach(([d,y,z])=>{const lf=new THREE.Mesh(new THREE.CircleGeometry(.35,16),new THREE.MeshStandardMaterial({color:0x2c6b3a,emissive:0x0a2a10,side:2,fog:false}));lf.scale.x=1.9;lf.position.set(d*.55,y,0);lf.rotation.set(.3,z,d*.6);rose.add(lf)});
+/* ---------- state + loop ---------- */
+let T=0,last=performance.now(),shake=0,rush=0,open=0,openT=0,tz=0,camY=0,cI=1.6,cIT=1.6,pxx=0,pyy=0,spin=0,done=false,sw=0,pulse=0;
+function loop(now){requestAnimationFrame(loop);const dt=Math.min((now-last)/1000,.05);last=now;T+=dt;
+Cm.position.z+=(tz-Cm.position.z)*Math.min(1,dt*1.1);Cm.position.y+=(camY-Cm.position.y)*Math.min(1,dt*1.5);
+Cm.position.x=Math.sin(T*.4)*.25+shake*(Math.random()-.5);
+Cm.rotation.y+=(-pxx*.28-Cm.rotation.y)*.06;Cm.rotation.x+=(pyy*.16-Cm.rotation.x)*.06;Cm.rotation.z=shake*(Math.random()-.5)*.06;shake=RM?0:shake*.93;rush*=.975;
+cI+=(cIT-cI)*.03;candle.intensity=cI*(1+.18*Math.sin(T*23)*Math.sin(T*7.3));candle.position.set(Cm.position.x,Cm.position.y+.4,Cm.position.z-1.5);
+for(let i=0;i<N;i++){const d=pd[i];d.y-=dt*d.f*(1+rush);if(d.y<-9)d.y=9;d.rx+=dt*d.sx;d.ry+=dt*d.sy;o.position.set(d.x+Math.sin(T*.6+d.f*9)*.4,d.y,d.z);o.rotation.set(d.rx,d.ry,0);o.scale.setScalar(d.s);o.updateMatrix();IM.setMatrixAt(i,o.matrix)}
+IM.instanceMatrix.needsUpdate=true;IM.instanceColor.needsUpdate=true;
+for(const p of papers){const m=p.m;m.material.emissiveIntensity=seen.has(p.i)?.2:.3+.22*Math.sin(T*3+p.i);m.material.opacity=p.done&&p.g<=T?.45:1;let hx=p.hx,hy=p.hy,hz=p.hz;
+if(orbit){p.a+=dt*.35;hx=Math.cos(p.a)*p.r;hy=.2+Math.sin(p.a*1.3)*1.4;hz=ROSE_Z+Math.sin(p.a)*p.r}else{hx+=Math.sin(T*.7+p.i)*.5;hy+=Math.sin(T*.9+p.i*2)*.4}
+if(p.g>T){tmp.set(0,0,-2.3).applyMatrix4(Cm.matrixWorld);m.position.lerp(tmp,.12);m.quaternion.slerp(Cm.quaternion,.12);m.scale.lerp(sc2,.12)}
+else{m.position.lerp(tmp.set(hx,hy,hz),.06);m.scale.lerp(sc1,.1);o2.rotation.set(Math.sin(T*.4+p.i*2)*.3,Math.sin(T*.5+p.i)*.7+(orbit?-p.a+1.57:0),Math.sin(T*.3+p.i)*.4);m.quaternion.slerp(o2.quaternion,.05)}}
+open+=(openT-open)*.035;rose.rotation.y=T*.18+spin;
+for(const r of rings){const q=Math.max(0,Math.min(1,open*1.5-(4-r.i)*.17)),e=q*q*(3-2*q);r.px.rotation.x=.1+r.i*.03+e*(.3+r.i*.24);r.m.scale.setScalar((.5+r.i*.22)*(.65+.35*e)*(1+.03*Math.sin(T*1.6+r.i)))}
+pulse*=.96;glow.scale.setScalar(3+open*5+pulse*7+Math.sin(T*3)*.3);rl.intensity=1+open*4+pulse*6;
+if(sw>0){sw=Math.max(0,sw-dt*.45);shock.scale.setScalar((1-sw)*18+.5);shock.material.opacity=sw*.7}
+sparks.material.opacity+=((done?.9:openT*.4)-sparks.material.opacity)*.03;for(let i=0;i<120;i++){SP[i*3+1]+=dt*.35;if(SP[i*3+1]>5)SP[i*3+1]=-2}sg.attributes.position.needsUpdate=true;
+FP.visible=done;if(done){for(let i=0;i<40;i++){const d=fd[i];d.y-=dt*d.v;if(d.y<-3.2)d.y=5.5;d.a+=dt*.25;o.position.set(Math.cos(d.a)*(1+d.r),-1.2+d.y,ROSE_Z+Math.sin(d.a)*(1+d.r));o.rotation.set(d.rx+T*.9,T*.6+d.a,0);o.scale.setScalar(d.s);o.updateMatrix();FP.setMatrixAt(i,o.matrix)}FP.instanceMatrix.needsUpdate=true}
+R.render(S,Cm)}requestAnimationFrame(loop);
+addEventListener('pointermove',e=>{pxx=e.clientX/innerWidth*2-1;pyy=e.clientY/innerHeight*2-1;torch(e)});
+addEventListener('deviceorientation',e=>{if(e.gamma!=null){pxx=Math.max(-1,Math.min(1,e.gamma/35));pyy=Math.max(-1,Math.min(1,(e.beta-45)/45))}});
+/* ---------- audio ---------- */
+let A,drone,beat;
+function audio(){try{A=new(window.AudioContext||window.webkitAudioContext)();const o=A.createOscillator(),g=A.createGain(),f=A.createBiquadFilter();o.type='sawtooth';o.frequency.value=55;f.type='lowpass';f.frequency.value=160;g.gain.value=.05;o.connect(f);f.connect(g);g.connect(A.destination);o.start();drone={o,g,f};setBeat(1200)}catch(e){}}
+function thump(){if(!A||A.state!=='running')return;[0,.18].forEach(d=>{const o=A.createOscillator(),g=A.createGain();o.frequency.value=48;const t=A.currentTime+d;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.4,t+.02);g.gain.exponentialRampToValueAtTime(.001,t+.25);o.connect(g);g.connect(A.destination);o.start(t);o.stop(t+.3)});if(navigator.vibrate)navigator.vibrate([40,90,30])}
+function setBeat(ms){clearInterval(beat);beat=setInterval(thump,ms)}
+function noise(){if(!A||A.state!=='running')return;const b=A.createBuffer(1,A.sampleRate*.5,A.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);const s=A.createBufferSource(),g=A.createGain();g.gain.value=.5;s.buffer=b;s.connect(g);g.connect(A.destination);s.start()}
+function chime(){if(!A||A.state!=='running')return;[523,659,784,1047,1318].forEach((fr,i)=>{const o=A.createOscillator(),g=A.createGain();o.frequency.value=fr;const t=A.currentTime+i*.25;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.13,t+.05);g.gain.exponentialRampToValueAtTime(.001,t+3);o.connect(g);g.connect(A.destination);o.start(t);o.stop(t+3.1)})}
+function flash(){if(RM)return;const f=$('fl');f.classList.remove('on');void f.offsetWidth;f.classList.add('on')}
+/* ---------- text engine ---------- */
+const t=$('t'),s=$('s'),go=$('go'),card=$('card'),cv=$('c');
+go.addEventListener('click',()=>{audio();playSong();try{if(window.DeviceOrientationEvent&&DeviceOrientationEvent.requestPermission)DeviceOrientationEvent.requestPermission().catch(()=>{})}catch(e){}},{once:true});
+function type(el,txt,sp=45){return new Promise(r=>{el.textContent='';el.classList.add('cur');let i=0;(function n(){if(i<txt.length){el.textContent+=txt[i++];setTimeout(n,/[.,?…]/.test(txt[i-1])?sp*6:sp)}else{el.classList.remove('cur');r()}})()})}
+function torch(e){if(!card.classList.contains('dark'))return;const b=card.getBoundingClientRect();card.style.setProperty('--mx',(e.clientX-b.left)+'px');card.style.setProperty('--my',(e.clientY-b.top)+'px')}
+const ch=[
+{m:'Raat bohat gehri hai.',s:'Aur mujhe pata hai, tum mujhse khafa ho. Hona bhi chahiye.',b:'Aage',l:1.4,beat:1200},
+{m:'Is andhere mein ek baat chhupi hai.',s:'Wo baat jo main kehna chahta hoon, magar kehne se darta hoon.',b:'Aage',l:1.1,beat:1600},
+{m:'Yaad hai?',s:'Call par baat karte hue ek ghanta guzar jata tha aur pata bhi nahi chalta tha. Na ghadi, na raat. Bas tumhari awaaz.',b:'Haan…',l:2.2,beat:1400},
+{m:'Tumne mujhse sirf ek cheez kahi thi.',s:'Sirf ek. Aur wo bohat badi bhi nahi thi.',b:'Phir?',l:1.4,beat:1000},
+{fx:'glitch',m:'Aur maine wohi kiya.',s:'Jaan boojh kar. Tumhe chirane ke liye. Wo mazaq nahi tha. Wo tumhari baat ki be-izzati thi.',b:'…',l:3,beat:600},
+{fx:'black',m:'Phir khamoshi.',s:'Itni gehri ke apni dhadkan sunai di. Aur apni ghalti bhi.',b:'Sunti raho',beat:1900},
+{m:'Tumhari “na” ka matlab “na” hi tha.',s:'Wo meri azaadi par roka nahi thi, wo tumhari hadd thi. Aur hadd ki izzat karna mohabbat ka pehla sabaq hai. Main bhool gaya.',b:'Aage',l:1.6,beat:1200},
+{m:'Raste mein kuch chamak raha hai.',s:'Door. Bohat door. Dekh rahi ho?',b:'Qareeb jao',l:1.8,beat:1000},
+{m:'Gulab. Tumhara pasandida.',s:'Abhi ye band hai. Aur mere akele se nahi khilega.',b:'Aage',l:2,beat:900}
+];
+const STEP=96/ch.length;
+function gate(){return new Promise(res=>{const lastK=k>=ch.length-1,nz=-(k+2)*STEP-3,need=()=>papers.filter(p=>(lastK||p.hz>nz)&&!seen.has(p.i)).length,t0=Date.now();
+const iv=setInterval(()=>{const n=need(),held=papers.some(p=>p.g>T);if((!n&&!held)||Date.now()-t0>100000){clearInterval(iv);hn.classList.remove('on');res();return}
+if(!held){hn.textContent=Date.now()-t0>35000?'Chamakte kaghaz dhoondo · '+n+' baaki':'Udte kaghaz chhuo aur padho · '+n+' baaki';hn.classList.add('on')}},400)})}
+let k=-1,busy=false;
+async function next(){if(busy)return;busy=true;go.classList.remove('on');
+if(k===-1){if(!A)audio();if(song.paused)playSong();$('stage').classList.add('fade')}
+k++;$('bar').style.width=((k+1)/(ch.length+2)*100)+'%';
+if(k>=ch.length)return finale();
+const c=ch[k];card.classList.remove('dark');$('hint').classList.remove('on');cv.style.opacity=1;t.className='line';
+if(k===0){$('hint').textContent='Hawa mein udte kaghaz par tap karo';$('hint').classList.add('on');setTimeout(()=>$('hint').classList.remove('on'),9000)}
+tz=-(k+1)*STEP;if(c.l!=null)cIT=c.l;if(c.beat)setBeat(c.beat);
+if(drone)drone.f.frequency.value=100+(c.l||1)*40;
+t.textContent='';s.textContent='';await wait(1600);
+if(c.fx==='glitch'){shake=4;rush=7;noise();flash();t.classList.add('glitch');setTimeout(()=>t.classList.remove('glitch'),2600)}
+if(c.fx==='black'){cv.style.opacity=0;cIT=0}
+if(c.fx==='dark'){card.classList.add('dark');card.style.setProperty('--mx','12%');card.style.setProperty('--my','20%');$('hint').textContent='Ungli ghumao, roshni dhoondo';$('hint').classList.add('on')}
+await type(t,c.m,55);await wait(900);await type(s,c.s,30);
+if(c.fx==='dark')await wait(7000);else await wait(500);
+if(c.fx==='black'){cv.style.opacity=1;cIT=1.1}await gate();go.textContent=c.b;go.classList.add('on');busy=false}
+go.onclick=()=>{go.classList.remove('on');setTimeout(next,250)};
+/* ---------- finale ---------- */
+const hold=$('hold'),ring=$('ring');let hp=0,hi;
+async function finale(){go.style.display='none';cv.style.opacity=1;t.className='line';t.textContent='';s.textContent='';
+await wait(1200);await type(t,'Ek aakhri baat.',70);await wait(900);
+await type(s,'Agar tum maaf kar sakti ho, to is gol ko dil se dabaye rakho. Jab tak gulab khil na jaye.',32);hold.classList.add('on');busy=false}
+function tick(){hp=Math.min(100,hp+1);upd();if(hp>=100){clearInterval(hi);bloom()}}
+function upd(){ring.style.strokeDashoffset=477*(1-hp/100);openT=hp/100*.8;tz=-108-hp*.05;cIT=2+hp/25;rush=Math.max(rush,hp/12);shake=Math.max(shake,hp/60);setBeat(Math.max(380,1100-hp*7));if(drone)drone.g.gain.value=.05+hp/900}
+hold.addEventListener('pointerdown',e=>{e.preventDefault();if(done)return;clearInterval(hi);hi=setInterval(tick,50)});
+['pointerup','pointerleave','pointercancel'].forEach(ev=>hold.addEventListener(ev,()=>{if(done)return;clearInterval(hi);hi=setInterval(()=>{hp=Math.max(0,hp-3);upd();if(hp<=0)clearInterval(hi)},30)}));
+hold.addEventListener('contextmenu',e=>e.preventDefault());
+hold.addEventListener('keydown',e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();hold.dispatchEvent(new PointerEvent('pointerdown'))}});
+hold.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter')hold.dispatchEvent(new PointerEvent('pointerup'))});
+async function bloom(){done=true;sw=1;pulse=1;hold.style.display='none';card.style.opacity=0;clearInterval(beat);$('bar').style.width='100%';
+flash();chime();openT=1;startOrbit();songVol(.4);rush=14;shake=2;spin=0;tz=-112.5;camY=-2.3;cIT=3.5;
+await wait(3800);$('stage').classList.add('end');card.style.opacity=1;t.className='line fade';
+await type(t,'Areshey, mujhe bohat afsos hai.',70);await wait(900);
+await type(s,'Wo lafz main dobara kabhi nahi bolunga jo tumne mana kiya tha. Tumhari “na” ko mazaq nahi, hukm ki tarah maanunga. Ye gulab tumhare liye, kaante nikal kar.',32);
+await wait(1500);showEnv('Khat par tap karo')}
+go.onclick=()=>{go.classList.remove('on');setTimeout(next,250)};
+const LT=["Areshey,", "Ye khat main kai baar likh kar phaar chuka hoon. Jo bhi likhta, kam lagta tha, kyunki jo maine kiya wo kam nahi tha.", "Mujhe aaj bhi wo calls yaad hain, jab ek ghanta guzar jata tha aur hum dono ko pata bhi nahi chalta tha. Wo sukoon, wo bharosa, maine apni hi harkat se kharab kar diya.", "Tumne mujhse ek baat kahi thi. Saaf, seedhi, sirf ek baar: wo lafz mat bolna. Tumhe dobara samjhane ki zaroorat hi nahi honi chahiye thi.", "Aur maine phir bhi wahi bola. Jaan boojh kar. Isliye ke tumhe chirta hua dekhun. Wo mazaq nahi tha. Wo tumhari baat ki aur tumhari be-izzati thi.", "Mere paas koi bahana nahi hai. Na ghussa, na mood, na “mazaq mein keh diya”. Maine jaan kar tumhari “na” ko tod diya, aur ye mera apna faisla tha.", "Sab se zyada dukh is baat ka hai ke tum mujh par bharosa karti thi, aur maine usi bharose ko tumhe chubhne ka zariya bana liya. Jis se tum sab se zyada mehfooz thi, usi ne takleef di.", "Main nahi jaanta us din ke baad tumne kitni raatein is baare mein socha. Bas itna jaanta hoon ke wo sochna meri wajah se tha, aur wo bojh mera tha, tumhara nahi.", "Sorry kehna aasaan hai, nibhana mushkil. Isliye ye mere wade hain:", "Wo lafz main dobara kabhi nahi bolunga. Na mazaq mein, na ghusse mein, na tumhe chirane ke liye.", "Jab tum kuch mana karogi, main ruk jaunga. Bina bahas, bina wajah poochay, bina bura mane.", "Agar kabhi bhool jaun, to tum seedha rok dena. Main sunoonga, aur apne aap ko sudharunga.", "Aur main khud par kaam karunga, tumhe dikhane ke liye nahi, balke isliye ke aisa insaan nahi rehna jo apne pyaare ko chire.", "Tumhe gulab pasand hain. Maine socha gulab de dun, phir samjha ke gulab maafi nahi hota. Maafi to badalna hota hai. Ye gulab bas itna kehta hai ke main tumhari pasand yaad rakhta hoon, aur ab tumhari hadd bhi.", "Tum mujhe abhi maaf karo, thora waqt lo, ya kabhi na karo, main har faisle ki izzat karunga. Maaf karna tumhara haq hai, mera haq nahi. Mujhe koi jaldi nahi hai.", "Aur jo ek baat sunni hai wo ye: mujhe bohat afsos hai. Dil se, poore dil se.", "Sharminda,", "jo ab sunna seekh raha hai 🌹"];
+let usr=false;const pap=$('paper');['touchstart','wheel'].forEach(ev=>pap.addEventListener(ev,()=>usr=true,{passive:true}));
+let ltT=[];
+function closeLetter(){wid++;ltT.forEach(clearTimeout);ltT=[];$('lt').style.display='none';showEnv('Jawab ki koi jaldi nahi. Khat dobara padhna ho to tap karo.')}
+let wid=0,skip=false;
+pap.addEventListener('click',()=>{skip=true});
+async function openLetter(){const id=++wid,lt=$('lt'),pc=$('pc'),cl=$('cl'),sk=$('sk');skip=false;usr=false;pc.innerHTML='';cl.classList.remove('on');sk.style.opacity=0;lt.style.display='flex';pap.scrollTop=0;pap.classList.remove('o');void pap.offsetWidth;pap.classList.add('o');flash();$('x').focus();
+await wait(1800);if(wid!==id)return;sk.style.opacity=1;
+for(let i=0;i<LT.length;i++){const e=document.createElement('p'),ch=[...LT[i]];e.className='lp w cur'+(i===0?' h':'')+(i>=9&&i<=12?' pr':'');pc.appendChild(e);
+for(let n=0;n<ch.length;n++){if(wid!==id)return;if(skip){e.textContent=LT[i];break}e.textContent=ch.slice(0,n+1).join('');if(n%30===0&&!usr)pap.scrollTop=pap.scrollHeight;await wait(/[.,:?]/.test(ch[n])?140:17)}
+e.classList.remove('cur');if(!usr)pap.scrollTop=pap.scrollHeight;if(!skip)await wait(450)}
+if(wid!==id)return;const sn=document.createElement('div');sn.className='sig';sn.innerHTML='<svg viewBox="0 0 240 100" role="img" aria-label="Ali"><text x="8" y="78">Ali</text></svg>';pc.appendChild(sn);pap.scrollTop=pap.scrollHeight;await wait(skip?400:3000);if(wid!==id)return;sk.style.opacity=0;cl.classList.add('on');pap.scrollTo({top:pap.scrollHeight,behavior:'smooth'})}
+$('cl').onclick=closeLetter;$('x').onclick=closeLetter;
+addEventListener('keydown',e=>{if(e.key==='Escape'&&$('lt').style.display==='flex')closeLetter()});
+const song=$('song');let sv=0,svT=.22,siv;
+function songVol(v){svT=v}
+let muted=false;
+function sync(){if(A)(muted||document.hidden)?A.suspend():A.resume();song.muted=muted;if(document.hidden)song.pause();else if(!muted&&k>-1&&song.paused)song.play().catch(()=>{})}
+$('snd').onclick=()=>{muted=!muted;$('snd').textContent=muted?'🔇':'🔊';sync()};
+document.addEventListener('visibilitychange',sync);
+function playSong(){song.volume=0;const p=song.play();if(p&&p.catch)p.catch(()=>{});clearInterval(siv);siv=setInterval(()=>{sv+=(svT-sv)*.02;song.volume=Math.max(0,Math.min(1,sv))},100)}
+const env=$('env');
+function showEnv(m){const w=$('ew');w.querySelector('p').textContent=m;w.style.display='flex';w.style.animation='none';void w.offsetWidth;w.style.animation=''}
+function envOpen(){if(env.classList.contains('open'))return;env.classList.add('open');if(navigator.vibrate)navigator.vibrate(30);setTimeout(()=>{$('ew').style.display='none';env.classList.remove('open');openLetter()},900)}
+env.onclick=envOpen;env.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();envOpen()}};
+/* ---------- instagram-style opening ---------- */
+(async()=>{const m=$('igm'),inp=$('igt'),L=['Areshey','Pata hai, tum abhi mujhse baat nahi karna chahti.','Isliye jawab ka intezaar nahi karunga.','Bas ek cheez banayi hai, sirf tumhare liye. Jab dil kare, tab kholna.'];
+await wait(900);
+for(const x of L){inp.classList.add('t');inp.textContent='';for(const c of x){inp.textContent+=c;await wait(RM?0:32)}await wait(350);inp.classList.remove('t');inp.textContent='Message…';const b=document.createElement('div');b.className='mb';b.textContent=x;m.appendChild(b);m.scrollTop=m.scrollHeight;if(navigator.vibrate)navigator.vibrate(10);await wait(900)}
+const d=document.createElement('div');d.className='mb lk';d.tabIndex=0;d.setAttribute('role','button');d.innerHTML='🌹 Areshey, ek lamba safar<small>Tap karke kholo</small>';m.appendChild(d);m.scrollTop=m.scrollHeight;
+const op=()=>{d.onclick=null;d.onkeydown=null;const g=$('ig');g.style.opacity=0;setTimeout(()=>g.style.display='none',650);go.click()};
+d.onclick=op;d.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();op()}}})();
+</script>
+</body>
+</html>
